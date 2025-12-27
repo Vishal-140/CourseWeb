@@ -18,13 +18,14 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestController
 @RequestMapping("/courses")
+@CrossOrigin("http://localhost:5173/")
 public class CourseController {
     @Autowired
     CourseService courseService;
 
     @GetMapping("/allCourses")
     public ResponseEntity<List<Course>> getAllCourses(){
-       return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
+        return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
 
     @GetMapping("/{courseId}")
@@ -64,6 +65,10 @@ public class CourseController {
         }
         existingCourse.setCourseName(updatedCourse.getCourseName());
         existingCourse.setCourseDescription(updatedCourse.getCourseDescription());
+        existingCourse.setTags(updatedCourse.getTags());
+        existingCourse.setDuration(updatedCourse.getDuration());
+        existingCourse.setListedOn(updatedCourse.getListedOn());
+        existingCourse.setPrice(updatedCourse.getPrice());
 
         courseService.saveCourse(existingCourse);
         return new ResponseEntity<>(existingCourse, HttpStatus.OK);

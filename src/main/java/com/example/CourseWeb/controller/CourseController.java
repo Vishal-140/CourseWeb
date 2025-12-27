@@ -2,7 +2,10 @@ package com.example.CourseWeb.controller;
 
 import com.example.CourseWeb.model.Course;
 import com.example.CourseWeb.service.CourseService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,17 +17,17 @@ public class CourseController {
     CourseService courseService;
 
     @GetMapping("/allCourses")
-    public List<Course> getAllCourses(){
-       return courseService.getAllCourses();
+    public ResponseEntity<List<Course>> getAllCourses(){
+       return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
 
     @GetMapping("/{courseId}")
-    public Course getCourseBycourseId(@PathVariable Integer courseId){
-        return courseService.getCourseBycourseId(courseId);
+    public ResponseEntity<Course> getCourseBycourseId(@PathVariable Integer courseId){
+        return new ResponseEntity<>(courseService.getCourseBycourseId(courseId), HttpStatus.FOUND);
     }
 
     @PostMapping("/")
-    public Course saveCourse(@RequestBody Course newCourse){
-        return courseService.saveCourse(newCourse);
+    public ResponseEntity<Course> saveCourse(@Valid @RequestBody Course newCourse){
+        return ResponseEntity.ok(courseService.saveCourse(newCourse));
     }
 }

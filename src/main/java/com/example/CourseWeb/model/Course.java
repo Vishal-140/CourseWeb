@@ -1,10 +1,7 @@
 package com.example.CourseWeb.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +23,7 @@ public class Course {
 
     @NotBlank(message = "Course Description cannot be blank")
     @Column(nullable = false)
+    @Size(min = 20, max = 1000, message = "Course Description cannot be blank" + "Description cannot be less than 20 characters and more than 1000 characters")
     String courseDescription;
 
     String tags;

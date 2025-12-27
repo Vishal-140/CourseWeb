@@ -25,4 +25,8 @@ public class CourseService {
     public Course saveCourse(Course newCourse) {
         return courseRepo.save(newCourse);
     }
+
+    public void deleteCourse(Integer courseId) {
+        courseRepo.deleteById(courseId);
+    }
 }
